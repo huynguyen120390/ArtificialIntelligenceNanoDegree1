@@ -1,18 +1,18 @@
 # Sudoku Solver 
-#Input: 
+**Input**
 a string represents diagonal Sudoku board with numbers and . (spaces on Sudoku board)
-#Output: 
+**Output**
 a solved diagonal Sudoku board in form of dict type 
-#Language : 
+**Language**
 Python 
-#Strategies: 
+**Strategies** 
 - only choice 
 - eliminate 
 - naked twins
-#AI_Algorithms:
+**AI_Algorithms**
 - Constraint Propagation 
 - Depth First Search
-#Extension:
+**Extension**
 - Transformation to Classic/General Sudoku: comment out the diagonal unit list 
 - Use letters instead of numbers 1-9 : edit number set into desired text set
 
