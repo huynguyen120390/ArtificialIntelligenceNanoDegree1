@@ -36,52 +36,29 @@ def findNakedTwinsinOneUnit(values,unit):
     for box in potentialPair:
         for box2 in potentialPair:
             if (box != box2) and (values[box] == values[box2]) and (box not in pairs) :
-                pairs.append(box);
-                pairs.append(box2);
+                twin = box, box2
+                pairs.append(twin);
+               
     #print(pairs)
     return pairs 
 
-def findAllTwins(values):
-    potentialPair = []
-    pairs = []
-    for box in boxes:  
-        if len(values[box])== 2:
-                potentialPair.append(box)
-
-    for box in potentialPair:
-        for box2 in potentialPair:
-            if (box != box2) and (values[box] == values[box2]) and (box not in pairs) : #no repeat 
-                pairs.append(box);
-                pairs.append(box2);
-
-    assert len(pairs) % 2 == 0 and pairs != 0  #if not even size or 0, then wrong, coz not in pairs
-    return pairs 
-
-
-def eliminateCandidates(values,pairs,allPairs,unit):
-    for box in pairs:
-        twinDigit = values[box]
-        for digit in twinDigit:
-            for peer in peers[box]:
-                if (peer not in allPairs) and (peer not in pairs) and (digit in values[peer] and( len(values[peer]) > 1)) and (peer in unit):
-                    a = values[peer]
-                    values[peer] = values[peer].replace(digit,'')   # remember not to replace one of the twins
-                   # print("Take out {} at {} has value {} with nakedTwin ".format (digit, peer,a))
-
+def eliminateCandidates(values,pairs,unit):
+    for twinPair in pairs:
+        pair = list(twinPair)
+        for box in pair:
+            twinDigit = values[box]
+            for digit in twinDigit:
+                for unitPeer in unit:
+                    #if (peer not in allPairs) and (peer not in pairs) and (digit in values[peer] and( len(values[peer]) > 1)) and (peer in unit):
+                    if (unitPeer not in pair) and (digit in values[unitPeer]):
+                        values[unitPeer] = values[unitPeer].replace(digit,'')   # remember not to replace one of the twins
     return values
 
 def naked_twins(values):
     for unit in unitlist:
-        allPairs = findAllTwins(values)
         pairs = findNakedTwinsinOneUnit(values,unit)
-        values = eliminateCandidates(values,pairs,allPairs,unit)
+        values = eliminateCandidates(values,pairs,unit)
     return values
-
-
-
-       
-
-
 
 def display(values):
     """
